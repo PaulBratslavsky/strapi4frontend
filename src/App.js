@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from 'react';
+import "../src/styles.css";
+
+import { GlobalContextState } from "../src/context/globalContext";
+import { GlobalContextDispatch } from '../src/context/globalContext';
+
+import Button from "./styled/Button/Button";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const state = useContext(GlobalContextState);
+  const dispatch = useContext(GlobalContextDispatch);
+
+  if (!state.loggedIn) return <Button onClick={() => dispatch({ type: "LOGIN" })}>Login</Button>;
+  if (state.loggedIn) return <Button onClick={() => dispatch({ type: "LOGOUT" })}>Logout</Button>;
+
 }
 
 export default App;
+
+
