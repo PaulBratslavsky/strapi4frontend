@@ -71,7 +71,7 @@ export default function Input({
             id={id}
             name={name}
             type={type}
-            placeholder={error || placeholder}
+            placeholder={(error && !showError) ? error : placeholder}
             $error={error}
             {...rest}
           />
