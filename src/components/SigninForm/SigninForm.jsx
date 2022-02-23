@@ -1,57 +1,20 @@
 import { useState, useContext } from "react";
-import { GlobalContextDispatch, GlobalContextState } from "../context/globalContext";
+import {
+  GlobalContextDispatch,
+  // GlobalContextState,
+} from "../../context/globalContext";
 
-import tw from "tailwind-styled-components";
-import Button from "../styled/Button/Button";
-import Input from "../styled/Input/Input";
-
-const FormWrapper = tw.div`
-  min-h-full 
-  flex flex-col 
-  justify-center 
-  py-12 
-  sm:px-6 
-  lg:px-8
-`;
-
-const FormBox = tw.div`
-  sm:mx-auto 
-  sm:w-full 
-  sm:max-w-md 
-`;
-
-const FormImage = tw.img`
-  mx-auto 
-  h-12 
-  w-auto
-`;
-
-const FormHeading = tw.h2`
-  mt-6 
-  text-center 
-  text-3xl 
-  font-extrabold 
-  text-gray-900
-`;
-
-const FormContainer = tw.div`
-  bg-white 
-  py-8 
-  px-4 
-  shadow 
-  sm:rounded-lg 
-  sm:px-10
-`;
-
-const FormError = tw.div`
-  mt-6`;
-const checkURLRegex =
-  /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
-
-function isRegexValid(url, regex) {
-  const result = url.match(regex) ? true : false;
-  return result;
-}
+import { isRegexValid, checkURLRegex } from "../../helpers/isRegexValid";
+import {
+  FormWrapper,
+  FormContainer,
+  FormImage,
+  FormBox,
+  FormHeading,
+  FormError,
+} from "../../styled/styles/form";
+import Button from "../../styled/base/Button/Button";
+import Input from "../../styled/base/Input/Input";
 
 const INITIAL_FORM_DATA = {
   email: "",
@@ -63,8 +26,8 @@ const INITIAL_FORM_ERRORS = {
   password: false,
 };
 
-export default function Login() {
-  const state = useContext(GlobalContextState);
+export default function Login({setSelection}) {
+  // const state = useContext(GlobalContextState);
   const dispatch = useContext(GlobalContextDispatch);
 
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
@@ -106,27 +69,25 @@ export default function Login() {
   function hadleFormSubmit(event) {
     event.preventDefault();
     const hasErrors = formValidation(formData);
-    
+
     if (!hasErrors) {
       alert("Write function to handle form submit");
       dispatch({ type: "LOGIN" });
     }
   }
 
-  if (state.loggedIn) return <p>You are looged in <Button onClick={() => dispatch({ type: "LOGOUT" })}>Logout</Button>;</p>;
   return (
     <FormWrapper>
-      <FormBox>
-        <FormImage
-          src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-          alt="Workflow"
-        />
-        <FormHeading>Sign in to your account</FormHeading>
-      </FormBox>
-
       <FormBox className="mt-8">
         <FormContainer>
           <form className="space-y-6" onSubmit={hadleFormSubmit}>
+            <FormBox>
+              <FormImage
+                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                alt="Workflow"
+              />
+              <FormHeading>Sign in</FormHeading>
+            </FormBox>
             <Input
               id="email"
               name="email"
@@ -156,6 +117,21 @@ export default function Login() {
             <Button className="mt-6" type="submit">
               Submit
             </Button>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <span className="ml-2 block text-sm text-gray-900">
+                  Don't have an account?
+                </span>
+              </div>
+
+              <div
+                className="text-sm font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer"
+                onClick={() => setSelection("signup")}
+              >
+                Sign Up
+              </div>
+            </div>
           </form>
 
           <FormError></FormError>
