@@ -18,14 +18,24 @@ const InputBase = tw.input`
   px-3 
   py-2 
   border 
-  border-gray-300 
   rounded-md 
   shadow-sm 
+  sm:text-sm
+
+  border-gray-300 
   placeholder-gray-400 
   focus:outline-none 
   focus:ring-indigo-500 
   focus:border-indigo-500 
-  sm:text-sm
+
+  ${({ $error }) =>
+    $error &&
+    `border-red-300 
+  text-red-900 
+  placeholder-red-300 
+  focus:outline-none 
+  focus:ring-red-500 
+  focus:border-red-500`}
 `;
 
 const InputIconError = tw.div`
@@ -49,6 +59,7 @@ export default function Input({
   type,
   placeholder,
   label,
+  showError,
   ...rest
 }) {
   return (
@@ -60,7 +71,8 @@ export default function Input({
             id={id}
             name={name}
             type={type}
-            placeholder={placeholder}
+            placeholder={error || placeholder}
+            $error={error}
             {...rest}
           />
           {error && (
@@ -72,7 +84,7 @@ export default function Input({
             </InputIconError>
           )}
         </div>
-        {error && (
+        {error && showError && (
           <InputError className="" id={`${name}-error`}>
             {error}
           </InputError>
