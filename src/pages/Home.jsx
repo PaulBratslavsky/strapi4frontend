@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { GlobalContextState } from '../context/globalContext';
+import { Navigate } from 'react-router-dom';
+
 import SigninForm from "../components/SigninForm/SigninForm";
 import SignupForm from "../components/SignupForm/SignupForm";
 import Page from "../styled/base/Page/Page";
@@ -8,6 +11,9 @@ import GridItem from "../styled/layout/Grid/GridItem";
 
 export default function Home() {
   const [selection, setSelection] = useState("signup");
+  const { loggedIn } = useContext(GlobalContextState);
+  
+  if (loggedIn) return <Navigate to="/dashboard" />;
 
   return (
     <Page className="bg-gray-800">

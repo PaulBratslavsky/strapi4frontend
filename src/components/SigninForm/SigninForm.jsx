@@ -1,9 +1,5 @@
 import { useState, useContext } from "react";
-import {
-  GlobalContextDispatch,
-  // GlobalContextState,
-} from "../../context/globalContext";
-
+import { GlobalContextDispatch } from "../../context/globalContext";
 import { isRegexValid, checkURLRegex } from "../../helpers/isRegexValid";
 import {
   FormWrapper,
@@ -26,8 +22,7 @@ const INITIAL_FORM_ERRORS = {
   password: false,
 };
 
-export default function Login({setSelection}) {
-  // const state = useContext(GlobalContextState);
+export default function Login({ setSelection }) {
   const dispatch = useContext(GlobalContextDispatch);
 
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
