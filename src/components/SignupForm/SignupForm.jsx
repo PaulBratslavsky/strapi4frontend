@@ -14,6 +14,7 @@ import {
   FormError,
 } from "../../styled/styles/form";
 import Button from "../../styled/base/Button/Button";
+import ButtonLink from "../../styled/base/ButtonLink/ButtonLink";
 import Input from "../../styled/base/Input/Input";
 
 const INITIAL_FORM_DATA = {
@@ -166,12 +167,9 @@ export default function SignupForm({ setSelection }) {
                 </span>
               </div>
 
-              <div
-                className="text-sm font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer"
-                onClick={() => setSelection("signin")}
-              >
+              <ButtonLink onClick={() => setSelection("signin")}>
                 Sign In
-              </div>
+              </ButtonLink>
             </div>
           </form>
 

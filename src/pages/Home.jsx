@@ -13,7 +13,7 @@ export default function Home() {
   const [selection, setSelection] = useState("signup");
   const { loggedIn } = useContext(GlobalContextState);
   
-  if (loggedIn) return <Navigate to="/dashboard" />;
+  if (loggedIn) return <Navigate to="/dashboard/teams" />;
 
   return (
     <Page className="bg-gray-800">

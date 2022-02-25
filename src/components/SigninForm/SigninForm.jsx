@@ -10,6 +10,7 @@ import {
   FormError,
 } from "../../styled/styles/form";
 import Button from "../../styled/base/Button/Button";
+import ButtonLink from "../../styled/base/ButtonLink/ButtonLink";
 import Input from "../../styled/base/Input/Input";
 
 const INITIAL_FORM_DATA = {
@@ -66,7 +67,6 @@ export default function Login({ setSelection }) {
     const hasErrors = formValidation(formData);
 
     if (!hasErrors) {
-      alert("Write function to handle form submit");
       dispatch({ type: "LOGIN" });
     }
   }
@@ -120,12 +120,9 @@ export default function Login({ setSelection }) {
                 </span>
               </div>
 
-              <div
-                className="text-sm font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer"
-                onClick={() => setSelection("signup")}
-              >
+              <ButtonLink onClick={() => setSelection("signup")}>
                 Sign Up
-              </div>
+              </ButtonLink>
             </div>
           </form>
 
