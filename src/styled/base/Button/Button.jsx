@@ -38,5 +38,3 @@ export default function Button({ children, ...rest }) {
     </ButtonWrapper>
   )
 }
-
-
