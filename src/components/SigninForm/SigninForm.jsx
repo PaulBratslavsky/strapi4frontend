@@ -30,7 +30,6 @@ export default function Login({ setSelection }) {
   const [formError, setFormError] = useState(INITIAL_FORM_ERRORS);
 
   function handleInputChange(event) {
-    console.log(event.target.name, event.target.value, "EHEY");
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   }
@@ -88,6 +87,7 @@ export default function Login({ setSelection }) {
               name="email"
               type="email"
               label="Email Address"
+              autoComplete="off"
               placeholder="Enter your email"
               onChange={handleInputChange}
               onBlur={(e) => validateEmail(e.target.value)}
@@ -100,6 +100,7 @@ export default function Login({ setSelection }) {
               name="password"
               type="password"
               label="Password"
+              autoComplete="new-password"
               placeholder="Enter your password"
               onBlur={(e) => validatePassword(e.target.value)}
               value={formData.password}

@@ -20,7 +20,7 @@ const ButtonLinkTWBase = tw.button`
 export default function ButtonLink({ children, ...rest }) {
   return (
     <ButtonLinkWrapper>
-      <ButtonLinkTWBase {...rest}>{children}</ButtonLinkTWBase>
+      <ButtonLinkTWBase type="button" {...rest}>{children}</ButtonLinkTWBase>
     </ButtonLinkWrapper>
   );
 }

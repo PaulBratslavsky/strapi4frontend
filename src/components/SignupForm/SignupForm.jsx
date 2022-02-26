@@ -134,6 +134,7 @@ export default function SignupForm({ setSelection }) {
               id="email"
               name="email"
               type="email"
+              autoComplete="off"
               label="Email Address"
               placeholder="Enter your email"
               onChange={handleInputChange}
@@ -147,6 +148,7 @@ export default function SignupForm({ setSelection }) {
               name="password"
               type="password"
               label="Password"
+              autoComplete="new-password"
               placeholder="Enter your password"
               onBlur={(e) => validatePassword(e.target.value)}
               value={formData.password}
