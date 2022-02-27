@@ -1,18 +1,27 @@
-import Button from "../styled/base/Button/Button";
+import { useState } from "react";
+import Modal from '../components/Modal/Modal';
+import { UserAddIcon } from '@heroicons/react/solid';
+import ActionHeader from '../components/ActionHeader/ActionHeader';
+import Table from '../components/Table/Table';
+import InviteUserForm from '../components/InviteUserForm/InviteUserForm';
+
 export default function Users() {
+  const [open, setOpen] = useState(false);
   return (
     <div>
-      <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
-        <div className="flex-1 min-w-0">
-          <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
-            USERS <span>1</span>
-          </h1>
-        </div>
-        <div className="mt-4 flex sm:mt-0 sm:ml-4">
-          <Button type="button">Add User</Button>
-        </div>
+      <ActionHeader title="USERS" count="1" cta="Invite User" ctaAction={() => setOpen(true)}/>
+      <div>
+        <Table />
       </div>
-      <div></div>
+      <Modal
+        title="Invite Team Member"
+        iconComponent={UserAddIcon}
+        description="Complete information bellow to send an invite to user."
+        open={open}
+        setOpen={setOpen}
+      >
+        <InviteUserForm />
+      </Modal>
     </div>
   );
 }
