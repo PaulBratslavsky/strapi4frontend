@@ -18,14 +18,14 @@ const navigation = [
     pathname: "/dashboard/teams",
     icon: UsersIcon,
     current: false,
-    count: 10,
+    count: 3,
   },
   {
     name: "Users",
     pathname: "/dashboard/users",
     icon: UserIcon,
     current: false,
-    count: 1,
+    count: 3,
   },
 ];
 
