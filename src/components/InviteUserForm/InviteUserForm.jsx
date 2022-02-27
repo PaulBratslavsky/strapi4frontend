@@ -82,7 +82,6 @@ export default function InviteUserForm({ setOpen }) {
     }
   }
 
-  console.log({ ...formData, selectedTeam: team });
   return (
     <form onSubmit={handleSubmit}>
       <div className="sm:overflow-hidden text-left p-2">

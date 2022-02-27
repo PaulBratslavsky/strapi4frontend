@@ -48,7 +48,6 @@ const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useImmerReducer(reducer, data);
 
   useEffect(() => {
-    console.log(data.loggedIn === false);
     if (data.loggedIn === false) localStorage.removeItem("teams-app-data");
     setData(state);
   }, [state, setData, data]);
