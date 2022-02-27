@@ -10,7 +10,7 @@ export default function Users() {
   return (
     <div>
       <ActionHeader title="USERS" count="1" cta="Invite User" ctaAction={() => setOpen(true)}/>
-      <div>
+      <div className="h-full overflow-x-auto">
         <Table />
       </div>
       <Modal
