@@ -96,7 +96,8 @@ export default function SignupForm({ setSelection }) {
     <FormWrapper>
       <FormBox className="mt-8">
         <FormContainer>
-          <form className="space-y-6" onSubmit={hadleFormSubmit}>
+          <form  onSubmit={hadleFormSubmit}>
+          <fieldset className="space-y-6" >
             <FormBox>
               <FormImage
                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
@@ -115,6 +116,7 @@ export default function SignupForm({ setSelection }) {
               onBlur={(e) => validateGeneric(e.target.value, "firstName")}
               value={formData.firstName}
               error={formError.firstName && "Please provide a first name"}
+              disabled={true}
             />
 
             <Input
@@ -127,6 +129,7 @@ export default function SignupForm({ setSelection }) {
               onBlur={(e) => validateGeneric(e.target.value, "lastName")}
               value={formData.lastName}
               error={formError.lastName && "Please provide a last name"}
+              disabled={true}
             />
 
             <Input
@@ -140,6 +143,7 @@ export default function SignupForm({ setSelection }) {
               onBlur={(e) => validateEmail(e.target.value)}
               value={formData.email}
               error={formError.email && "Please provide a valid email"}
+              disabled={true}
             />
 
             <Input
@@ -155,10 +159,11 @@ export default function SignupForm({ setSelection }) {
                 formError.password && "Password must be at least 6 characters"
               }
               onChange={handleInputChange}
+              disabled={true}
             />
 
-            <Button className="mt-6" type="submit">
-              Submit
+            <Button className="mt-6 bg-gray-400 hover:bg-slate-500" type="submit" disabled={true} >
+              Disabled
             </Button>
 
             <div className="flex items-center justify-between">
@@ -172,6 +177,7 @@ export default function SignupForm({ setSelection }) {
                 Sign In
               </ButtonLink>
             </div>
+            </fieldset>
           </form>
 
           <FormError></FormError>

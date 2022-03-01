@@ -96,8 +96,8 @@ export default function Login({ setSelection }) {
     <FormWrapper>
       <FormBox className="mt-8">
         <FormContainer>
-          <form className="space-y-6" onSubmit={hadleFormSubmit}>
-            <fieldset disabled={loading}>
+          <form onSubmit={hadleFormSubmit}>
+            <fieldset className="space-y-6"disabled={loading}>
               <FormBox>
                 <FormImage
                   src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
