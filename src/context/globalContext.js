@@ -10,6 +10,7 @@ export const GlobalContextMethods = createContext();
 
 const initialState = {
   loggedIn: false,
+  user: null,
   token: null,
   teams: [],
   teamUsers: {},
@@ -18,7 +19,11 @@ const initialState = {
 const reducer = (draft, action) => {
   switch (action.type) {
     case "LOGIN":
-      draft.loggedIn = true;
+
+      draft.loggedIn = true
+      draft.user = action.payload.user;
+      draft.token = action.payload.jwt;
+      
       return;
 
     case "LOGOUT":
