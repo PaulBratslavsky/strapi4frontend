@@ -10,7 +10,7 @@ import Grid from "../styled/layout/Grid/Grid";
 import GridItem from "../styled/layout/Grid/GridItem";
 
 export default function Home() {
-  const [selection, setSelection] = useState("signup");
+  const [selection, setSelection] = useState("signin");
   const { loggedIn } = useContext(GlobalContextState);
   
   if (loggedIn) return <Navigate to="/dashboard/teams" />;
