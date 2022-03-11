@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+// import useFetchMutation from "../../hooks/useFetchMutation";
 import Input from "../../styled/base/Input/Input";
 import Textarea from "../../styled/base/Textarea/Textarea";
+
+// const baseUrl = `${process.env.REACT_APP_API_URL || "https://digitalstrapi-q86ge.ondigitalocean.app"}`;
+// const teamUrl = `${baseUrl}//api/teams/create`;
+
 const INITIAL_FORM_DATA = {
   teamName: "",
   teamDescription: "",
@@ -14,6 +19,7 @@ const INITIAL_FORM_ERRORS = {
 export default function CreateTeamForm({setOpen}) {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [formError, setFormError] = useState(INITIAL_FORM_ERRORS);
+  // const [ createTeam ] = useFetchMutation(teamUrl);
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -39,12 +45,13 @@ export default function CreateTeamForm({setOpen}) {
     return hasError;
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const hasErrors = formValidation(formData);
 
     if (!hasErrors) {
       const { teamName, teamDescription } = formData;
+      // await createTeam({ teamName, teamDescription });
       alert(`${teamName} ${teamDescription}`);
       setOpen(false);
     }
