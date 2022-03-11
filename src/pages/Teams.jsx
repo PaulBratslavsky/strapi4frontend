@@ -6,8 +6,8 @@ import { UsersIcon } from "@heroicons/react/outline";
 import ActionHeader from "../components/ActionHeader/ActionHeader";
 import TableColumn from '../components/Table/TableColumn';
 import useFetchQuery from '../hooks/useFetchQuery';
+import { baseUrl } from '../config';
 
-const baseUrl = `${process.env.REACT_APP_API_URL || "https://digitalstrapi-q86ge.ondigitalocean.app"}`;
 const teamsUrl = `${baseUrl}/api/teams`;
 
 export default function Teams() {

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Input from "../../styled/base/Input/Input";
 import Textarea from "../../styled/base/Textarea/Textarea";
 
-// const baseUrl = `${process.env.REACT_APP_API_URL || "https://digitalstrapi-q86ge.ondigitalocean.app"}`;
 // const teamUrl = `${baseUrl}//api/teams/create`;
 
 const INITIAL_FORM_DATA = {

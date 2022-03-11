@@ -15,7 +15,7 @@ import ButtonLink from "../../styled/base/ButtonLink/ButtonLink";
 import Input from "../../styled/base/Input/Input";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import MockUser from '../MockUser/MockUser';
-
+import { baseUrl } from '../../config';
 const INITIAL_FORM_DATA = {
   identifier: "",
   password: "",
@@ -26,7 +26,6 @@ const INITIAL_FORM_ERRORS = {
   password: false,
 };
 
-const baseUrl = `${process.env.REACT_APP_API_URL || "https://digitalstrapi-q86ge.ondigitalocean.app"}`;
 const loginUrl = `${baseUrl}/api/auth/local`;
 
 export default function Login({ setSelection }) {
