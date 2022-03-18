@@ -32,7 +32,7 @@ export default function useFetchQuery(url, options) {
     } finally {
       setLoading(false);
     }
-  },[]) 
+  },[token]) 
 
   useEffect(() => {
     fetchQuery(url, options);
