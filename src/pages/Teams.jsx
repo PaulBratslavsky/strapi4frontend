@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Table from "../components/Table/Table";
 import Modal from "../components/Modal/Modal";
 import CreateTeamForm from "../components/CreateTeamForm/CreateTeamForm";
@@ -7,13 +7,13 @@ import ActionHeader from "../components/ActionHeader/ActionHeader";
 import TableColumn from '../components/Table/TableColumn';
 import useFetchQuery from '../hooks/useFetchQuery';
 import { baseUrl } from '../config';
-
 const teamsUrl = `${baseUrl}/api/teams`;
 
 export default function Teams() {
   const [open, setOpen] = useState(false);
 
   const { data, loading, error } = useFetchQuery(teamsUrl);
+
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -32,7 +32,7 @@ export default function Teams() {
         <Table sourceData={teams}>
           <TableColumn source="teamName" label="Team Name"/>
           <TableColumn source="teamDescription" label="Description"/>
-          <TableColumn source="teamOwner" label="Founder" render={(data) => `${data.firstName} ${data.lastName}`}/>
+          <TableColumn source="teamOwner" label="Founder" render={(data) => data?.firstName ? `${data.firstName} ${data.lastName}` : "N/A"}/>
           <TableColumn source="teamMembers" label="Members" render={(data) =>  data.length }/>
         </Table>
       </div>

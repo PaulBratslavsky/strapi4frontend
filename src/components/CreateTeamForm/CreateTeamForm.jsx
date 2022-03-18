@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-// import useFetchMutation from "../../hooks/useFetchMutation";
 import Input from "../../styled/base/Input/Input";
 import Textarea from "../../styled/base/Textarea/Textarea";
-
-// const teamUrl = `${baseUrl}//api/teams/create`;
+import Button from "../../styled/base/Button/Button";
 
 const INITIAL_FORM_DATA = {
   teamName: "",
@@ -15,9 +13,10 @@ const INITIAL_FORM_ERRORS = {
   teamDescription: false,
 };
 
-export default function CreateTeamForm({setOpen}) {
+export default function CreateTeamForm({ setOpen }) {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [formError, setFormError] = useState(INITIAL_FORM_ERRORS);
+  const { token } = JSON.parse(localStorage.getItem("teams-app-data"));
   // const [ createTeam ] = useFetchMutation(teamUrl);
 
   function handleInputChange(event) {
@@ -47,12 +46,26 @@ export default function CreateTeamForm({setOpen}) {
   async function handleSubmit(event) {
     event.preventDefault();
     const hasErrors = formValidation(formData);
+    const teamUrl = "http://localhost:1337/api/teams";
 
     if (!hasErrors) {
-      const { teamName, teamDescription } = formData;
-      // await createTeam({ teamName, teamDescription });
-      alert(`${teamName} ${teamDescription}`);
-      setOpen(false);
+      try {
+        const response = await fetch(teamUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ data: formData }),
+        });
+
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setOpen(false);
+      }
     }
   }
   return (
@@ -86,19 +99,10 @@ export default function CreateTeamForm({setOpen}) {
           />
         </div>
         <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-          <button
-            type="submit"
-            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
-          >
-            Submit
-          </button>
-          <button
-            type="button"
-            className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
-            onClick={() => setOpen(false)}
-          >
+          <Button type="submit"> Submit</Button>
+          <Button type="button" variant={"secondary"} onClick={() => setOpen(false)}>
             Cancel
-          </button>
+          </Button>
         </div>
       </div>
     </form>
