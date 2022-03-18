@@ -62,7 +62,7 @@ export default function CreateTeamForm({ setOpen, fetchQuery }) {
         });
 
         const data = await response.json();
-        fetchQuery(teamUrl);
+        fetchQuery(teamsUrl);
         console.log(data);
       } catch (error) {
         console.log(error);
