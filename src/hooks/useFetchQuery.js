@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-const { token } = JSON.parse(localStorage.getItem("teams-app-data"));
+const token = JSON.parse(localStorage?.getItem("teams-app-data"))?.token;
+
+console.log(token);
 
 export default function useFetchQuery(url, options) {
   const [data, setData] = useState(null);
