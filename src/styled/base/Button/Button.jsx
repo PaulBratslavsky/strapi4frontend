@@ -36,7 +36,6 @@ const ButtonTWBase = tw.button`
 `;
 
 export default function Button({ children, variant, ...rest }) {
-  console.log(variant, "variant");
   return (
     <ButtonWrapper>
       <ButtonTWBase variant={variant} {...rest}>

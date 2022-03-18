@@ -9,6 +9,7 @@ import useFetchQuery from '../hooks/useFetchQuery';
 import { baseUrl } from '../config';
 const teamsUrl = `${baseUrl}/api/teams`;
 
+
 export default function Teams() {
   const [open, setOpen] = useState(false);
   const [ fetchQuery, { data, loading, error }] = useFetchQuery(teamsUrl);
