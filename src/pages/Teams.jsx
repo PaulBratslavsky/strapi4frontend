@@ -12,7 +12,9 @@ const teamsUrl = `${baseUrl}/api/teams`;
 export default function Teams() {
   const [open, setOpen] = useState(false);
 
-  const { data, loading, error } = useFetchQuery(teamsUrl);
+  const [ fetchQuery, { data, loading, error }] = useFetchQuery(teamsUrl);
+
+  console.log(data, loading, error, "ooh non");
 
 
   if (loading) return <p>Loading...</p>;
@@ -43,7 +45,7 @@ export default function Teams() {
         open={open}
         setOpen={setOpen}
       >
-        <CreateTeamForm />
+        <CreateTeamForm fetchQuery={fetchQuery}/>
       </Modal>
     </div>
   );
