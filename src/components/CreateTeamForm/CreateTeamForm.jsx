@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Input from "../../styled/base/Input/Input";
 import Textarea from "../../styled/base/Textarea/Textarea";
 import Button from "../../styled/base/Button/Button";
+import { baseUrl } from "../../config";
+const teamsUrl = `${baseUrl}/api/teams`;
+
 
 const INITIAL_FORM_DATA = {
   teamName: "",
@@ -46,11 +49,10 @@ export default function CreateTeamForm({ setOpen, fetchQuery }) {
   async function handleSubmit(event) {
     event.preventDefault();
     const hasErrors = formValidation(formData);
-    const teamUrl = "http://localhost:1337/api/teams";
 
     if (!hasErrors) {
       try {
-        const response = await fetch(teamUrl, {
+        const response = await fetch(teamsUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
