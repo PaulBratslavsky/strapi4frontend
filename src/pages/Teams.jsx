@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Table from "../components/Table/Table";
 import Modal from "../components/Modal/Modal";
 import CreateTeamForm from "../components/CreateTeamForm/CreateTeamForm";
@@ -11,9 +11,7 @@ const teamsUrl = `${baseUrl}/api/teams`;
 
 export default function Teams() {
   const [open, setOpen] = useState(false);
-
-  const { data, loading, error } = useFetchQuery(teamsUrl);
-
+  const [ fetchQuery, { data, loading, error }] = useFetchQuery(teamsUrl);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -43,7 +41,7 @@ export default function Teams() {
         open={open}
         setOpen={setOpen}
       >
-        <CreateTeamForm />
+        <CreateTeamForm fetchQuery={fetchQuery}/>
       </Modal>
     </div>
   );

@@ -13,7 +13,7 @@ const INITIAL_FORM_ERRORS = {
   teamDescription: false,
 };
 
-export default function CreateTeamForm({ setOpen }) {
+export default function CreateTeamForm({ setOpen, fetchQuery }) {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [formError, setFormError] = useState(INITIAL_FORM_ERRORS);
   const { token } = JSON.parse(localStorage.getItem("teams-app-data"));
@@ -60,6 +60,7 @@ export default function CreateTeamForm({ setOpen }) {
         });
 
         const data = await response.json();
+        fetchQuery(teamUrl);
         console.log(data);
       } catch (error) {
         console.log(error);
