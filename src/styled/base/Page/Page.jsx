@@ -8,7 +8,7 @@ const PageWrapper = styled.div`
 const PageTWBase = tw.div`
   h-screen 
   overflow-auto
-  py-10
+
 `;
 
 export default function Page({ children, ...rest }) {

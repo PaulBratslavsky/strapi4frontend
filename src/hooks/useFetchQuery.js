@@ -1,14 +1,15 @@
-import { useState, useEffect, useCallback } from "react";
-const token = JSON.parse(localStorage?.getItem("teams-app-data"))?.token;
-
-console.log(token);
+import { useState, useEffect, useCallback, useContext } from "react";
+import { GlobalContextState } from "../context/globalContext";
 
 export default function useFetchQuery(url, options) {
+  const token  = useContext(GlobalContextState).token;
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchQuery = useCallback(async (url, options) => {
+    // const token = JSON.parse(localStorage?.getItem("teams-app-data"))?.token;
+
 
     const fetchOptions = {
         method: "GET",

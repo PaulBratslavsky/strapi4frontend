@@ -8,6 +8,7 @@ import Page from "../styled/base/Page/Page";
 import Heading from "../components/Heading/Heading";
 import Grid from "../styled/layout/Grid/Grid";
 import GridItem from "../styled/layout/Grid/GridItem";
+import Benefits from '../components/Benefits/Benefits';
 
 export default function Home() {
   const [selection, setSelection] = useState("signin");
@@ -35,6 +36,7 @@ export default function Home() {
           </GridItem>
         </Grid>
       </main>
+      <Benefits />
     </Page>
   );
 }

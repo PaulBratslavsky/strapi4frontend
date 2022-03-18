@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { GlobalContextState } from "../../context/globalContext";
 import Input from "../../styled/base/Input/Input";
 import Textarea from "../../styled/base/Textarea/Textarea";
 import Button from "../../styled/base/Button/Button";
@@ -19,7 +20,9 @@ const INITIAL_FORM_ERRORS = {
 export default function CreateTeamForm({ setOpen, fetchQuery }) {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [formError, setFormError] = useState(INITIAL_FORM_ERRORS);
-  const { token } = JSON.parse(localStorage.getItem("teams-app-data"));
+  // const { token } = JSON.parse(localStorage.getItem("teams-app-data"));
+  const token  = useContext(GlobalContextState).token;
+
   // const [ createTeam ] = useFetchMutation(teamUrl);
 
   function handleInputChange(event) {

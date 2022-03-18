@@ -32,7 +32,6 @@ const ButtonTWBase = tw.button`
   ${(props) => props.variant === "primary" && "hover:bg-indigo-400"}
   ${(props) => props.variant === "secondary" && "bg-gray-400"}
   ${(props) => props.variant === "secondary" && "hover:bg-gray-500"}
-  ${(props) => console.log(props, "props")}
 `;
 
 export default function Button({ children, variant, ...rest }) {
