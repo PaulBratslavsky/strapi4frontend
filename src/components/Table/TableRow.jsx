@@ -6,19 +6,18 @@ export default function TableRow({ row, columns, index, update }) {
   const [editing, setEditing] = React.useState(false);
   const [data, setData] = React.useState(row);
 
-
   function handleChange(key, value) {
     setData({ ...data, [key]: value });
   }
 
   function handleResetField() {
     if (editing === true) setData({ ...data, ...row });
-    setEditing(!editing)
+    setEditing(!editing);
   }
 
   async function handleSubmit() {
-    update(data.id, data)
-    setEditing(false)
+    update(data.id, data);
+    setEditing(false);
   }
   return (
     <tr style={{ background: editing ? "orange" : "" }}>
@@ -48,18 +47,20 @@ export default function TableRow({ row, columns, index, update }) {
         }
         return <td className="px-6 py-4 whitespace-nowrap">{data[result]}</td>;
       })}
+
       <td>
-        {editing && (
-          <Button onClick={handleSubmit}>Save</Button>
+        {columns[0].props?.editable !== undefined && (
+          <>
+            {editing && <Button onClick={handleSubmit}>Save</Button>}
+
+            <Button
+              variant={editing ? "secondary" : "primary"}
+              onClick={handleResetField}
+            >
+              {editing ? "Cancel" : "Edit"}
+            </Button>
+          </>
         )}
-
-
-        <Button
-          variant={editing ? "secondary" : "primary"}
-          onClick={handleResetField}
-        >
-          {editing ? "Cancel" : "Edit"}
-        </Button>
       </td>
     </tr>
   );
