@@ -2,7 +2,7 @@
 import { Children } from "react";
 import TableRow from "./TableRow";
 
-export default function Table({ children, sourceData }) {
+export default function Table({ children, sourceData, update }) {
   if (!sourceData) return null;
 
   const columns = Children.toArray(children);
@@ -30,6 +30,10 @@ export default function Table({ children, sourceData }) {
                       {column.props.label}
                     </th>
                   ))}
+                   <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  ></th>
                 </tr>
               </thead>
 
@@ -40,6 +44,7 @@ export default function Table({ children, sourceData }) {
                       key={row}
                       row={row}
                       columns={columns}
+                      update={update}
                       index={index}
                     />
                   );
