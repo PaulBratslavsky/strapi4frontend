@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../../styled/base/Button/Button";
 import Input from "../../styled/base/Input/Input";
+import classNames from 'classnames';
 
 export default function TableRow({ row, columns, index, update }) {
   const [editing, setEditing] = React.useState(false);
@@ -15,13 +15,17 @@ export default function TableRow({ row, columns, index, update }) {
     setEditing(!editing);
   }
 
+  function handleDelete() {
+    alert("Delete");
+  }
+
   async function handleSubmit() {
     update(data.id, data);
     setEditing(false);
   }
   return (
-    <tr style={{ background: editing ? "orange" : "" }}>
-      <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
+    <tr className={ editing ? "bg-gray-50" : "" }>
+      <td className="px-6 py-4 whitespace-nowrap leading-9">{index + 1}</td>
 
       {columns.map((column, index) => {
         const result = Object.keys(row).find(
@@ -30,14 +34,14 @@ export default function TableRow({ row, columns, index, update }) {
 
         if (column.props.render)
           return (
-            <td key={index} className="px-6 py-4 whitespace-nowrap">
+            <td key={index} className="px-6 py-4 whitespace-nowrap leading-9">
               {column.props.render(data[result])}
             </td>
           );
 
         if (column.props?.editable !== undefined && editing) {
           return (
-            <td key={index} className="px-6 py-4 whitespace-nowrap">
+            <td key={index} className="px-6 py-2 whitespace-nowrap">
               <Input
                 value={data[result]}
                 onChange={(e) => handleChange(result, e.target.value)}
@@ -45,20 +49,35 @@ export default function TableRow({ row, columns, index, update }) {
             </td>
           );
         }
-        return <td className="px-6 py-4 whitespace-nowrap">{data[result]}</td>;
+        return <td className="px-6 py-4 whitespace-nowrap leading-9">{data[result]}</td>;
       })}
 
-      <td>
+      <td className="w-32  px-6 py-4 whitespace-nowrap flex justify-between items-center leading-9">
         {columns[0].props?.editable !== undefined && (
           <>
-            {editing && <Button onClick={handleSubmit}>Save</Button>}
+            {editing && (
+              <span
+                className="cursor-pointer text-indigo-600 hover:text-indigo-900 mr-1"
+                onClick={handleSubmit}
+              >
+                Save
+              </span>
+            )}
 
-            <Button
-              variant={editing ? "secondary" : "primary"}
+            <span
+              className={classNames("cursor-pointer  mr-1", editing ? "text-gray-500 hover:text-gray-600" : "text-indigo-600 hover:text-indigo-900")}
               onClick={handleResetField}
             >
               {editing ? "Cancel" : "Edit"}
-            </Button>
+            </span>
+            {!editing && (
+              <span
+                className="cursor-pointer text-red-600 hover:text-red-900"
+                onClick={handleDelete}
+              >
+                Delete
+              </span>
+            )}
           </>
         )}
       </td>
