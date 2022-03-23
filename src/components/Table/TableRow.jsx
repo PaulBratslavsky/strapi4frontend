@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../../styled/base/Input/Input";
 import classNames from 'classnames';
 
-export default function TableRow({ row, columns, index, update }) {
+export default function TableRow({ row, columns, index, update, remove }) {
   const [editing, setEditing] = React.useState(false);
   const [data, setData] = React.useState(row);
 
@@ -17,9 +17,11 @@ export default function TableRow({ row, columns, index, update }) {
 
   function handleDelete() {
     alert("Delete");
+    remove(data.id)
   }
 
   async function handleSubmit() {
+    alert("Step 1");
     update(data.id, data);
     setEditing(false);
   }

@@ -30,6 +30,7 @@ const loginUrl = `${baseUrl}/api/auth/local`;
 
 export default function Login({ setSelection }) {
   const dispatch = useContext(GlobalContextDispatch);
+  
 
   const [login, { loading, error, data }] = useFetchMutation(loginUrl);
 

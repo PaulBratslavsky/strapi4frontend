@@ -2,7 +2,7 @@
 import { Children } from "react";
 import TableRow from "./TableRow";
 
-export default function Table({ children, sourceData, update }) {
+export default function Table({ children, sourceData, update, remove }) {
   if (!sourceData) return null;
 
   const columns = Children.toArray(children);
@@ -45,6 +45,7 @@ export default function Table({ children, sourceData, update }) {
                       row={row}
                       columns={columns}
                       update={update}
+                      remove={remove}
                       index={index}
                     />
                   );
