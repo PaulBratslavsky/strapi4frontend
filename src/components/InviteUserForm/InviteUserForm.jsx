@@ -76,8 +76,6 @@ export default function InviteUserForm({ setOpen }) {
     const hasErrors = formValidation(formData);
 
     if (!hasErrors) {
-      const { teamName, inviteMessage } = formData;
-      alert(`${teamName} ${inviteMessage}`);
       setOpen(false);
     }
   }
