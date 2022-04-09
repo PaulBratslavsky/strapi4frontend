@@ -16,12 +16,10 @@ export default function TableRow({ row, columns, index, update, remove }) {
   }
 
   function handleDelete() {
-    alert("Delete");
     remove(data.id)
   }
 
   async function handleSubmit() {
-    alert("Step 1");
     update(data.id, data);
     setEditing(false);
   }

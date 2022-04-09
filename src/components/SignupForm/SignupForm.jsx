@@ -87,7 +87,6 @@ export default function SignupForm({ setSelection }) {
     const hasErrors = formValidation(formData);
 
     if (!hasErrors) {
-      alert("Write function to handle form submit");
       dispatch({ type: "LOGIN" });
     }
   }

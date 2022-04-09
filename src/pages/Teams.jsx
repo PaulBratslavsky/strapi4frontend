@@ -21,7 +21,6 @@ export default function Teams() {
   const teams = data ? data.data.attributes.results : [];
 
   async function handleUpdateRequest(id, formData) {
-    alert("called second");
     try {
       const response = await fetch(teamsUrl + "/" + id, {
         method: "PUT",
@@ -39,12 +38,10 @@ export default function Teams() {
       console.log(error);
     } finally {
       setOpen(false);
-      alert("updated successfully");
     }
   }
 
   async function handleDeleteRequest(id) {
-    alert("delete called");
     try {
       const response = await fetch(teamsUrl + "/" + id, {
         method: "DELETE",
