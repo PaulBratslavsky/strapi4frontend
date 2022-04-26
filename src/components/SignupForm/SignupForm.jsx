@@ -1,8 +1,10 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   GlobalContextDispatch,
   // GlobalContextState,
 } from "../../context/globalContext";
+
+import useFetchMutation from "../../hooks/useFetchMutation";
 
 import { isRegexValid, checkURLRegex } from "../../helpers/isRegexValid";
 import {
@@ -16,6 +18,8 @@ import {
 import Button from "../../styled/base/Button/Button";
 import ButtonLink from "../../styled/base/ButtonLink/ButtonLink";
 import Input from "../../styled/base/Input/Input";
+
+import { baseUrl } from '../../config';
 
 const INITIAL_FORM_DATA = {
   firstName: "",
@@ -31,12 +35,23 @@ const INITIAL_FORM_ERRORS = {
   password: false,
 };
 
+const registerUrl = `${baseUrl}/api/auth/local/registerUser`;
+
 export default function SignupForm({ setSelection }) {
-  // const state = useContext(GlobalContextState);
   const dispatch = useContext(GlobalContextDispatch);
 
+  const [registerUser, { loading, error, data }] = useFetchMutation(registerUrl);
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [formError, setFormError] = useState(INITIAL_FORM_ERRORS);
+
+  useEffect(() => {
+    if (data) {
+      console.log(data, "from signup form");
+      const { jwt, user } = data;
+      dispatch({ type: "LOGIN", payload: { jwt, user } });
+    }
+  }, [data, dispatch]);
+
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -87,9 +102,29 @@ export default function SignupForm({ setSelection }) {
     const hasErrors = formValidation(formData);
 
     if (!hasErrors) {
-      dispatch({ type: "LOGIN" });
+      
+
+      const userData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        username: formData.email,
+        email: formData.email,
+        password: formData.password,
+      }
+
+      const registerPayload = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      };
+
+      registerUser(registerPayload);
     }
   }
+  
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <FormWrapper>
@@ -115,7 +150,6 @@ export default function SignupForm({ setSelection }) {
               onBlur={(e) => validateGeneric(e.target.value, "firstName")}
               value={formData.firstName}
               error={formError.firstName && "Please provide a first name"}
-              disabled={true}
             />
 
             <Input
@@ -128,7 +162,6 @@ export default function SignupForm({ setSelection }) {
               onBlur={(e) => validateGeneric(e.target.value, "lastName")}
               value={formData.lastName}
               error={formError.lastName && "Please provide a last name"}
-              disabled={true}
             />
 
             <Input
@@ -142,7 +175,6 @@ export default function SignupForm({ setSelection }) {
               onBlur={(e) => validateEmail(e.target.value)}
               value={formData.email}
               error={formError.email && "Please provide a valid email"}
-              disabled={true}
             />
 
             <Input
@@ -158,11 +190,10 @@ export default function SignupForm({ setSelection }) {
                 formError.password && "Password must be at least 6 characters"
               }
               onChange={handleInputChange}
-              disabled={true}
             />
 
-            <Button className="mt-6 bg-gray-400 hover:bg-slate-500" type="submit" disabled={true} >
-              Disabled
+            <Button className="mt-6 mb-6" type="submit" disabled={loading}>
+              Create Account
             </Button>
 
             <div className="flex items-center justify-between">

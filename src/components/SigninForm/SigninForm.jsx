@@ -16,6 +16,7 @@ import Input from "../../styled/base/Input/Input";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import MockUser from '../MockUser/MockUser';
 import { baseUrl } from '../../config';
+
 const INITIAL_FORM_DATA = {
   identifier: "",
   password: "",
