@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
+import { baseUrl } from '../../config';
 import {
   GlobalContextDispatch,
-  // GlobalContextState,
 } from "../../context/globalContext";
-
+import useFetchMutation from '../../hooks/useFetchMutation';
 import { isRegexValid, checkURLRegex } from "../../helpers/isRegexValid";
 import {
   FormWrapper,
@@ -16,6 +16,8 @@ import {
 import Button from "../../styled/base/Button/Button";
 import ButtonLink from "../../styled/base/ButtonLink/ButtonLink";
 import Input from "../../styled/base/Input/Input";
+
+const registerUrl = `${baseUrl}/api/auth/local/registerUser`;
 
 const INITIAL_FORM_DATA = {
   firstName: "",
@@ -32,11 +34,20 @@ const INITIAL_FORM_ERRORS = {
 };
 
 export default function SignupForm({ setSelection }) {
-  // const state = useContext(GlobalContextState);
+
   const dispatch = useContext(GlobalContextDispatch);
+
+  const [registerUser, { data, loading, error} ] = useFetchMutation(registerUrl)
 
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [formError, setFormError] = useState(INITIAL_FORM_ERRORS);
+
+  useEffect(() => {
+    if (data) {
+      const { jwt, user } = data;
+      dispatch({ type: "LOGIN", payload: { jwt, user } });
+    }
+  }, [data, dispatch]);
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -87,95 +98,102 @@ export default function SignupForm({ setSelection }) {
     const hasErrors = formValidation(formData);
 
     if (!hasErrors) {
-      dispatch({ type: "LOGIN" });
+
+      const registerPayload = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      };
+
+      registerUser(registerPayload)
     }
   }
+
+  if (error) return <h1>OOPPS!</h1>
 
   return (
     <FormWrapper>
       <FormBox className="mt-8">
         <FormContainer>
-          <form  onSubmit={hadleFormSubmit}>
-          <fieldset className="space-y-6" >
-            <FormBox>
-              <FormImage
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                alt="Workflow"
+          <form onSubmit={hadleFormSubmit}>
+            <fieldset className="space-y-6" disabled={loading}>
+              <FormBox>
+                <FormImage
+                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                  alt="Workflow"
+                />
+                <FormHeading>Sign Up</FormHeading>
+              </FormBox>
+
+              <Input
+                id="firstName"
+                name="firstName"
+                type="text"
+                label="First Name"
+                placeholder="Enter your first name"
+                onChange={handleInputChange}
+                onBlur={(e) => validateGeneric(e.target.value, "firstName")}
+                value={formData.firstName}
+                error={formError.firstName && "Please provide a first name"}
               />
-              <FormHeading>Sign Up</FormHeading>
-            </FormBox>
 
-            <Input
-              id="firstName"
-              name="firstName"
-              type="text"
-              label="First Name"
-              placeholder="Enter your first name"
-              onChange={handleInputChange}
-              onBlur={(e) => validateGeneric(e.target.value, "firstName")}
-              value={formData.firstName}
-              error={formError.firstName && "Please provide a first name"}
-              disabled={true}
-            />
+              <Input
+                id="lastName"
+                name="lastName"
+                type="text"
+                label="Last Name"
+                placeholder="Enter your last name"
+                onChange={handleInputChange}
+                onBlur={(e) => validateGeneric(e.target.value, "lastName")}
+                value={formData.lastName}
+                error={formError.lastName && "Please provide a last name"}
+              />
 
-            <Input
-              id="lastName"
-              name="lastName"
-              type="text"
-              label="Last Name"
-              placeholder="Enter your last name"
-              onChange={handleInputChange}
-              onBlur={(e) => validateGeneric(e.target.value, "lastName")}
-              value={formData.lastName}
-              error={formError.lastName && "Please provide a last name"}
-              disabled={true}
-            />
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="off"
+                label="Email Address"
+                placeholder="Enter your email"
+                onChange={handleInputChange}
+                onBlur={(e) => validateEmail(e.target.value)}
+                value={formData.email}
+                error={formError.email && "Please provide a valid email"}
+              />
 
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="off"
-              label="Email Address"
-              placeholder="Enter your email"
-              onChange={handleInputChange}
-              onBlur={(e) => validateEmail(e.target.value)}
-              value={formData.email}
-              error={formError.email && "Please provide a valid email"}
-              disabled={true}
-            />
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                label="Password"
+                autoComplete="new-password"
+                placeholder="Enter your password"
+                onBlur={(e) => validatePassword(e.target.value)}
+                value={formData.password}
+                error={
+                  formError.password && "Password must be at least 6 characters"
+                }
+                onChange={handleInputChange}
+              />
 
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              label="Password"
-              autoComplete="new-password"
-              placeholder="Enter your password"
-              onBlur={(e) => validatePassword(e.target.value)}
-              value={formData.password}
-              error={
-                formError.password && "Password must be at least 6 characters"
-              }
-              onChange={handleInputChange}
-              disabled={true}
-            />
+              <Button className="mt-6 mb-6" type="submit">
+                Register
+              </Button>
 
-            <Button className="mt-6 bg-gray-400 hover:bg-slate-500" type="submit" disabled={true} >
-              Disabled
-            </Button>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <span className="ml-2 block text-sm text-gray-900">
+                    Have an account?
+                  </span>
+                </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <span className="ml-2 block text-sm text-gray-900">
-                  Have an account?
-                </span>
+                <ButtonLink onClick={() => setSelection("signin")}>
+                  Sign In
+                </ButtonLink>
               </div>
-
-              <ButtonLink onClick={() => setSelection("signin")}>
-                Sign In
-              </ButtonLink>
-            </div>
             </fieldset>
           </form>
 
