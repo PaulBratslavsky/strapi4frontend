@@ -21,6 +21,8 @@ import Input from "../../styled/base/Input/Input";
 
 import { baseUrl } from '../../config';
 
+console.log(baseUrl);
+
 const INITIAL_FORM_DATA = {
   firstName: "",
   lastName: "",
