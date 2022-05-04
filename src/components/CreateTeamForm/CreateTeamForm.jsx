@@ -5,6 +5,7 @@ import Textarea from "../../styled/base/Textarea/Textarea";
 import Button from "../../styled/base/Button/Button";
 import { baseUrl } from "../../config";
 const teamsUrl = `${baseUrl}/api/teams`;
+const getAllTeams = `${baseUrl}/api/team/getMyTeams`
 
 
 const INITIAL_FORM_DATA = {
@@ -65,7 +66,7 @@ export default function CreateTeamForm({ setOpen, fetchQuery }) {
         });
 
         const data = await response.json();
-        fetchQuery(teamsUrl);
+        fetchQuery(getAllTeams);
         console.log(data);
       } catch (error) {
         console.log(error);

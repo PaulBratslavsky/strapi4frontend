@@ -9,11 +9,12 @@ import TableColumn from "../components/Table/TableColumn";
 import useFetchQuery from "../hooks/useFetchQuery";
 import { baseUrl } from "../config";
 const teamsUrl = `${baseUrl}/api/teams`;
+const getAllTeams = `${baseUrl}/api/team/getMyTeams`;
 
 export default function Teams() {
   const token = useContext(GlobalContextState).token;
   const [open, setOpen] = useState(false);
-  const [fetchQuery, { data, loading, error }] = useFetchQuery(teamsUrl);
+  const [fetchQuery, { data, loading, error }] = useFetchQuery(getAllTeams);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -53,7 +54,7 @@ export default function Teams() {
 
       const data = await response.json();
       console.log(data, "data deleted");
-      fetchQuery(teamsUrl);
+      fetchQuery(getAllTeams);
     } catch (err) {
       console.log(err);
     } finally {
